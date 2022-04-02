@@ -84,14 +84,14 @@ class _BookSelectionState extends State<BookSelection> {
                     children: [
                       Container(
                         height: MediaQuery.of(context).size.height * 0.50,
-                        width: MediaQuery.of(context).size.height * 0.50,
+                        width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             image: DecorationImage(
                           colorFilter: new ColorFilter.mode(
                               Colors.black54.withOpacity(0.9),
                               BlendMode.exclusion),
-                          image: AssetImage(_img[index]),
-                          fit: BoxFit.fill,
+                          image: AssetImage(_img[index],),
+                          fit: BoxFit.cover,
                         )),
                         // child: Column(
                         //   crossAxisAlignment: CrossAxisAlignment.center,
@@ -109,7 +109,7 @@ class _BookSelectionState extends State<BookSelection> {
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.50,
-                        width: MediaQuery.of(context).size.height * 0.50,
+                        width: MediaQuery.of(context).size.width,
                         color: Colors.black38,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
