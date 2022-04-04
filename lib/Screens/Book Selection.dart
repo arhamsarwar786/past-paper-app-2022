@@ -6,7 +6,8 @@ import 'Home.dart';
 import 'SelectYear.dart';
 
 class BookSelection extends StatefulWidget {
-  const BookSelection({Key? key}) : super(key: key);
+  final String className;
+  BookSelection(this.className);
 
   @override
   _BookSelectionState createState() => _BookSelectionState();
@@ -21,7 +22,7 @@ class _BookSelectionState extends State<BookSelection> {
     'Physics',
     'Urdu',
     'Islamiyat',
-    'Pak-Study',
+    'PakStudy',
     'Computer',
   ];
   static const _img = [
@@ -47,8 +48,7 @@ class _BookSelectionState extends State<BookSelection> {
           message: 'Go Back',
           child: InkWell(
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => MainPage()));
+            Navigator.pop(context);
             },
             child: Icon(
               Icons.arrow_back_rounded,
@@ -73,9 +73,10 @@ class _BookSelectionState extends State<BookSelection> {
                   top: 8.0, bottom: 8.0, left: 10, right: 10),
               child: InkWell(
                 onTap: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  Navigator.of(context).push(MaterialPageRoute(
                       builder: (_) => YearSelect(
                             _sub[index],
+                            widget.className
                           )));
                 },
                 child: Card(

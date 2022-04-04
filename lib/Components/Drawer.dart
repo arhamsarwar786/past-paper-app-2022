@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:book_app/Screens/About%20Us.dart';
 import 'package:book_app/Screens/Contact%20Us.dart';
+import 'package:book_app/Screens/Dwonloadpdf.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -29,8 +30,10 @@ class _MenuState extends State<Menu> with SingleTickerProviderStateMixin {
     Icons.share,
   ];
   var _navigationSc = [
-    Aboutus(),
+    Downloads(),
     Contactus(),
+    Aboutus(),
+    Aboutus(),
   ];
   static const _initialDelayTime = Duration(milliseconds: 50);
   static const _itemSlideTime = Duration(milliseconds: 600);

@@ -1,8 +1,10 @@
 // ignore_for_file: file_names
 
 import 'dart:async';
+import 'package:book_app/Path%20Manager/Download%20Manager/download.dart';
 import 'package:book_app/Screens/Home.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -18,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 8), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => MainPage()));
     });
@@ -31,6 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
     animation.addListener(() {
       setState(() {});
     });
+    
     controller.forward();
   }
 
@@ -40,15 +43,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   Timer(Duration(seconds: 8), () {
-  //     Navigator.of(context)
-  //         .pushReplacement(MaterialPageRoute(builder: (_) => MainPage()));
-  //   });
-  // }
+
 
   @override
   Widget build(BuildContext context) {

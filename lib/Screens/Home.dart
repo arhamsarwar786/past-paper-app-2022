@@ -1,9 +1,12 @@
 import 'package:book_app/Components/Drawer.dart';
 import 'package:book_app/Const.dart';
+import 'package:book_app/widgets.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
+import '../Path Manager/Download Manager/download.dart';
 import 'Book Selection.dart';
 
 class MainPage extends StatefulWidget {
@@ -20,8 +23,11 @@ class _MainPageState extends State<MainPage> {
     '11th',
     '12th',
   ];
+
+
   @override
   Widget build(BuildContext context) {
+    Provider.of<MyProvider>(context,listen: false).fetchPdfs();
     return Scaffold(
       drawer: Menu(),
       appBar: AppBar(
@@ -41,9 +47,8 @@ class _MainPageState extends State<MainPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (_) => BookSelection()));
+                  onTap: (){
+                    customSnackBar(context, "Coming Soon!");
                   },
                   child: Card(
                     shadowColor: Colors.black,
@@ -88,45 +93,51 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                 ),
-                Card(
-                  shadowColor: Colors.black,
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100)),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.20,
-                    width: MediaQuery.of(context).size.height * 0.20,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Constant.primarycolor,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        RichText(
-                          text: TextSpan(children: [
-                            TextSpan(
-                                text: '10',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 65,
-                                    fontWeight: FontWeight.w500)),
-                            WidgetSpan(
-                              child: Transform.translate(
-                                offset: const Offset(2, -25),
-                                child: Text(
-                                  'th',
-                                  //superscript is usually smaller in size
-                                  textScaleFactor: 0.9,
+                InkWell(
+                         onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => BookSelection("10th")));
+                  },
+                  child: Card(                  
+                    shadowColor: Colors.black,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.20,
+                      width: MediaQuery.of(context).size.height * 0.20,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: Constant.primarycolor,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RichText(
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: '10',
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 25),
+                                      color: Colors.white,
+                                      fontSize: 65,
+                                      fontWeight: FontWeight.w500)),
+                              WidgetSpan(
+                                child: Transform.translate(
+                                  offset: const Offset(2, -25),
+                                  child: Text(
+                                    'th',
+                                    //superscript is usually smaller in size
+                                    textScaleFactor: 0.9,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 25),
+                                  ),
                                 ),
-                              ),
-                            )
-                          ]),
-                        ),
-                      ],
+                              )
+                            ]),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -136,87 +147,97 @@ class _MainPageState extends State<MainPage> {
               // crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Card(
-                  shadowColor: Colors.black,
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100)),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.20,
-                    width: MediaQuery.of(context).size.height * 0.20,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Constant.primarycolor,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        RichText(
-                          text: TextSpan(children: [
-                            TextSpan(
-                                text: '11',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 65,
-                                    fontWeight: FontWeight.w500)),
-                            WidgetSpan(
-                              child: Transform.translate(
-                                offset: const Offset(2, -25),
-                                child: Text(
-                                  'th',
-                                  //superscript is usually smaller in size
-                                  textScaleFactor: 0.9,
+                InkWell(
+                    onTap: (){
+                    customSnackBar(context, "Coming Soon!");
+                  },
+                  child: Card(
+                    shadowColor: Colors.black,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.20,
+                      width: MediaQuery.of(context).size.height * 0.20,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: Constant.primarycolor,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RichText(
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: '11',
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 25),
+                                      color: Colors.white,
+                                      fontSize: 65,
+                                      fontWeight: FontWeight.w500)),
+                              WidgetSpan(
+                                child: Transform.translate(
+                                  offset: const Offset(2, -25),
+                                  child: Text(
+                                    'th',
+                                    //superscript is usually smaller in size
+                                    textScaleFactor: 0.9,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 25),
+                                  ),
                                 ),
-                              ),
-                            )
-                          ]),
-                        ),
-                      ],
+                              )
+                            ]),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                Card(
-                  shadowColor: Colors.black,
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100)),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.20,
-                    width: MediaQuery.of(context).size.height * 0.20,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Constant.primarycolor,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        RichText(
-                          text: TextSpan(children: [
-                            TextSpan(
-                                text: '12',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 65,
-                                    fontWeight: FontWeight.w500)),
-                            WidgetSpan(
-                              child: Transform.translate(
-                                offset: const Offset(2, -25),
-                                child: Text(
-                                  'th',
-                                  //superscript is usually smaller in size
-                                  textScaleFactor: 0.9,
+                InkWell(
+                    onTap: (){
+                    customSnackBar(context, "Coming Soon!");
+                  },
+                  child: Card(
+                    shadowColor: Colors.black,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.20,
+                      width: MediaQuery.of(context).size.height * 0.20,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: Constant.primarycolor,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RichText(
+                            text: TextSpan(children: [
+                              TextSpan(
+                                  text: '12',
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 25),
+                                      color: Colors.white,
+                                      fontSize: 65,
+                                      fontWeight: FontWeight.w500)),
+                              WidgetSpan(
+                                child: Transform.translate(
+                                  offset: const Offset(2, -25),
+                                  child: Text(
+                                    'th',
+                                    //superscript is usually smaller in size
+                                    textScaleFactor: 0.9,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 25),
+                                  ),
                                 ),
-                              ),
-                            )
-                          ]),
-                        ),
-                      ],
+                              )
+                            ]),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

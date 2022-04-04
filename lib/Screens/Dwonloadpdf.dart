@@ -1,98 +1,68 @@
-// import 'package:advance_pdf_viewer_fork/advance_pdf_viewer_fork.dart';
-// import 'package:book_app/Const.dart';
-// import 'package:flutter/material.dart';
-// import 'dart:io';
-// import 'package:dio/dio.dart';
-// import 'package:path_provider/path_provider.dart';
+import 'package:book_app/Const.dart';
+import 'package:book_app/Path%20Manager/Download%20Manager/download.dart';
+import 'package:book_app/Screens/pdf_viewer.dart';
+import 'package:book_app/SharePreferences/SharePreferences.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-// class DownloadFile extends StatefulWidget {
-//   @override
-//   State createState() {
-//     return _DownloadFileState();
-//   }
-// }
 
-// class _DownloadFileState extends State {
-//   var pdfUrl =
-//       "https://africau.edu/images/default/sample.pdf?msclkid=5425295dab6a11ecb584c29da3aca21e.pdf";
-//   bool downloading = true;
-//   String downloadingStr = "No data";
-//   String savePath = "";
+class Downloads extends StatelessWidget {
+  const Downloads({ Key? key }) : super(key: key);
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     downloadFile();
-//   }
+  @override
+  Widget build(BuildContext context) {
+    Provider.of<MyProvider>(context,listen: false).fetchPdfs();
+    return DefaultTabController(
 
-//   Future downloadFile() async {
-//     try {
-//       Dio dio = Dio();
+      length: 2,
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: (){
+          SavedPreferences.clearPreferences();
+          print("okkkkkkkkkkkkkkkkkkkk");
 
-//       String fileName = pdfUrl.substring(pdfUrl.lastIndexOf("/") + 1);
-
-//       savePath = await getFilePath(fileName);
-//       await dio.download(pdfUrl, savePath, onReceiveProgress: (rec, total) {
-//         setState(() {
-//           downloading = true;
-//           // download = (rec / total) * 100;
-//           downloadingStr = "Downloading Paper : $rec";
-//         });
-//       });
-//       setState(() {
-//         downloading = false;
-//         downloadingStr = "Completed";
-//       });
-//     } catch (e) {
-//       print(e.toString());
-//     }
-//   }
-
-//   Future<String> getFilePath(uniqueFileName) async {
-//     String path = '';
-
-//     Directory dir = await getApplicationDocumentsDirectory();
-
-//     path = '${dir.path}/$uniqueFileName';
-
-//     return path;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       theme: ThemeData(primaryColor: Colors.pink),
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text("Download File"),
-//           backgroundColor: Constant.primarycolor,
-//         ),
-//         body: Center(
-//           child: downloading
-//               ? Container(
-//                   height: 250,
-//                   width: 250,
-//                   child: Card(
-//                     color: Colors.pink,
-//                     child: Column(
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       children: [
-//                         CircularProgressIndicator(
-//                           backgroundColor: Colors.white,
-//                         ),
-//                         SizedBox(
-//                           height: 20,
-//                         ),
-//                         Text(
-//                           downloadingStr,
-//                           style: TextStyle(color: Colors.white),
-//                         )
-//                       ],
-//                     ),
-//                   ),
-//                 )
-//               : PDFViewer(document: )),
-//         ),
-//     );
-//   }
-// }
+        }),
+        appBar: AppBar(
+          backgroundColor: Constant.primarycolor,
+          bottom: TabBar(tabs: [
+            Tab(text: "Downloaded",icon: Icon(Icons.download_done),),
+            Tab(text: "Downloading",icon: Icon(Icons.download),),
+          ]),
+        ),
+        body: Consumer<MyProvider>(
+          builder: (context,provider,child) {
+            return TabBarView(
+              children: [
+                Container(
+                      child: provider.downloadedPdfs == null ? Center(child: Text("No Downloads"),): ListView.builder(
+                        
+                        itemCount: provider.downloadedPdfs.length,
+                        itemBuilder: (context,index){
+                          print(provider.downloadedPdfs[index]);
+                          var pdf = provider.downloadedPdfs[index];
+                            var key = pdf.keys.toList()[0];
+                        return Card(
+                          child: ListTile(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (_)=> PdfViewerOpener(key,pdf[key])));
+                            },
+                            title: Text("$key"),
+                            subtitle: Text("Downloaded",style: TextStyle(color: Colors.green),),
+                            trailing: Icon(Icons.check,color: Colors.green,),
+                          ),
+                        );
+                      }),
+                    ),
+                  
+                provider.progress >=1 || provider.progress == 0 ? Center(child: Text("No Downloading Yet"),) : ListTile(
+                      title: Text("Paper Downloading... ${(provider.progress*100).round()}"),
+                      subtitle: LinearProgressIndicator(value: provider.progress,),
+                      trailing: Icon(Icons.download),
+                    )
+              ],
+            );
+          }
+        ),
+      ),
+    );
+  }
+}
